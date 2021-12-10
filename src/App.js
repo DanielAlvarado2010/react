@@ -5,6 +5,8 @@ import './App.css';
 import  Greeting  from './components/Greeting';
 import FullName from './components/FullName';
 import Calculator from './components/Calculator';
+import Counter from './components/Counter';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Greeting name="Daniel" />
         <FullName name="Daniel" lastName="Alvarado" />
         <Calculator operador="multiplicacion" numeroA={4} numeroB={6} />
+        <Counter />
+        <Navbar />
 
       </header>
     </div>
