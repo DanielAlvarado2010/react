@@ -7,6 +7,7 @@ export default function Navbar() {
     const classChanger = (change) => setClass(change);
 
     const clickedOption = (element) => (itemStyle === element ? "active-li" : "" )
+    console.log(clickedOption())
 
     const parrChanger = (element) => (itemStyle=== element ? "active-p" : "deactive-p")
 
@@ -18,7 +19,7 @@ export default function Navbar() {
 				<li><button className={clickedOption(3)} onClick={() => classChanger(3)}>Item 3</button></li>
 			</ul>
             <p className={parrChanger(1)}>Esto se despliega si se presiona el primer boton</p>
-            <p className={parrChanger(2)}>Si se presiona el segundo boton esto se desplegara</p>
+            <p className={parrChanger(2)}>Si se presiona el segundo boton esto se despliegara</p>
             <p className={parrChanger(3)}>Ultima opción seleccionada al picar el ultimo boton</p>
 		</div>
 	);
