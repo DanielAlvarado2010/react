@@ -12,39 +12,57 @@ import UserName from "./components/UserName";
 import CartoonCards from "./components/CartoonCards";
 
 import { useEffect, useState } from "react";
+import { listCharacters } from "./services/characters.js";
 
 function App() {
-  const [cards, setCards] = useState([]);
+  const [characters, setCharacters] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    const getCards = async () => {
-      const response = await fetch("https://rickandmortyapi.com/api/character");
-      console.table(response);
-      const data = await response.json();
-      console.log(data);
-      setCards(data.results);
+    const list = async () => {
+      const { results, info } = await listCharacters();
+      setCharacters(results);
+      setData(info);
     };
-
-    getCards();
+    list();
   }, []);
 
-  console.log(cards.results);
+  const handleClick = async (action) => {
+    if (action === "next" && data.next != null) {
+      const page = data.next.split("?")[1];
+      const { results, info } = await listCharacters(page);
+      setCharacters(results);
+      setData(info);
+    }
+    if (action === "prev" && data.prev != null) {
+      const page = data.prev.split("?")[1];
+      const { results, info } = await listCharacters(page);
+      setCharacters(results);
+      setData(info);
+    }
+  };
 
-  const characters = cards.map(({ id, name, status, species, image }) => (
-    <CartoonCards
-      key={id}
-      name={name}
-      status={status}
-      species={species}
-      image={image}
-    />
-  ));
+  console.log(data);
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="card-container">{characters}</div>
-      </header>
+      <div className="fixed-container">
+        <button onClick={() => handleClick("prev")} className="btn btn-dark">
+          Previous
+        </button>
+        <button onClick={() => handleClick("next")} className="btn btn-dark">
+          Next
+        </button>
+      </div>
+      {characters.map(({ id, image, name, species, status }) => (
+        <CartoonCards
+          key={id}
+          image={image}
+          name={name}
+          species={species}
+          status={status}
+        />
+      ))}
     </div>
   );
 }
