@@ -1,83 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import "../src/components/CartoonCards/cartoon.css";
 
 //Components
-import  Greeting  from './components/Greeting';
-import FullName from './components/FullName';
-import Calculator from './components/Calculator';
-import Counter from './components/Counter';
-import Navbar from './components/Navbar';
-import UserName from './components/UserName';
+import Greeting from "./components/Greeting";
+import FullName from "./components/FullName";
+import Calculator from "./components/Calculator";
+import Counter from "./components/Counter";
+import Navbar from "./components/Navbar";
+import UserName from "./components/UserName";
+import CartoonCards from "./components/CartoonCards";
 
 import { useEffect, useState } from "react";
 
-
-
-const _users = [
-	{
-		id: 1,
-		firstName: "Selene",
-		lastName: "Chavez",
-	},
-	{
-		id: 2,
-		firstName: "Omar",
-		lastName: "Mijangos",
-	},
-	{
-		id: 3,
-		firstName: "Luis",
-		lastName: "Balán",
-	},
-	{
-		id: 4,
-		firstName: "Odon",
-		lastName: "Balán",
-	},
-];
-
-
 function App() {
-
-	const [users, setUsers] = useState([]);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-		// await fetch()
-		setTimeout(() => {
-			const response = _users;
-			setUsers(response);
-		}, 3000);
-	}, []);
+    const getCards = async () => {
+      const response = await fetch("https://rickandmortyapi.com/api/character");
+      console.table(response);
+      const data = await response.json();
+      console.log(data);
+      setCards(data.results);
+    };
 
-	const usersUI = users.map(({ id, firstName, lastName }) => (
-		<UserName key={id} firstName={firstName} lastName={lastName} />
-	));
+    getCards();
+  }, []);
+
+  console.log(cards.results);
+
+  const characters = cards.map(({ id, name, status, species, image }) => (
+    <CartoonCards
+      key={id}
+      name={name}
+      status={status}
+      species={species}
+      image={image}
+    />
+  ));
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <img src={logo} className="App-logo" alt="logo" />
-				{usersUI}
-		  	<UserName firstName={"Fuera del"} lastName={"map"} />
-        <Greeting name="Daniel" />
-        <FullName name="Daniel" lastName="Alvarado" />
-        <Calculator operador="multiplicacion" numeroA={4} numeroB={6} />
-        <Counter />
-        <Navbar />
-        <UserName />
-
+        <div className="card-container">{characters}</div>
       </header>
     </div>
   );
