@@ -2,3 +2,14 @@
   column-count: 2;
   padding: 20px;
 }
+
+.creditCardFormat {
+  border-radius: 8px;
+  background: rgb(89, 84, 158);
+  color: hsl(0, 0%, 100%);
+  font-size: 2px;
+  margin: 40px;
+  padding: 10px;
+  max-width: 40%;
+  height: 160px;
+}
