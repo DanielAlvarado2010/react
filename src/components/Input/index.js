@@ -1,14 +1,20 @@
 import React from "react";
 
+// CSS
+// import "./Input.css";
+
 function Input({ id, label, value, setValue, type = "text" }) {
   return (
-    <div>
-      <label htmlFor={id}>{label}:</label>
+    <div className="input-container">
+      <label className="label" htmlFor={id}>
+        {label}:
+      </label>
       <input
         type={type}
         id={id}
-        value={value}
+        className="input"
         onChange={(event) => setValue(event.target.value)}
+        value={value}
       />
     </div>
   );

@@ -1,21 +1,36 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-
-import App from "./App";
-import Users from "./pages/users";
-import UsersNew from "./pages/UsersNew";
-
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Pages
+import App from "./App";
+import Users from "./pages/Users";
+import Home from "./pages/Home";
+import UsersNew from "./pages/UsersNew";
+import UsersList from "./pages/UsersList";
+import UsersDetail from "./pages/UsersDetail";
+import UsersUpdate from "./pages/UsersUpdate";
+import UsersDetailContainer from "./pages/UsersDetailContainer";
+import UsersDelete from "./pages/UsersDelete";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/users/new" element={<UsersNew />} />
+        <Route path="*" element={<h1>NOT FOUND!</h1>} />
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="users" element={<Users />}>
+            <Route index element={<UsersList />} />
+            <Route path="new" element={<UsersNew />} />
+            <Route path=":userID" element={<UsersDetailContainer />}>
+              <Route index element={<UsersDetail />} />
+              <Route path="update" element={<UsersUpdate />} />
+            </Route>
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
