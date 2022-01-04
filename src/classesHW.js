@@ -40,11 +40,11 @@ class Koder extends Student {
   }
 
   code() {
-    return `Koder ${this.name} is coding`;
+    return `Koder is coding`;
   }
 
   developingApp() {
-    return `Koder ${this.name} is developing an app`;
+    return `Koder is developing an app`;
   }
 }
 
